@@ -39,7 +39,6 @@ const BankDashboard = () => {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 to-purple-100 p-6">
       
       <div className="max-w-6xl mx-auto">
-        {/* Header */}
         <header className="flex justify-between items-center mb-10">
           <div>
             <h1 className="text-4xl font-bold text-indigo-800">
@@ -57,21 +56,18 @@ const BankDashboard = () => {
           </div>
         </header>
 
-        {/* Compte Overview */}
         <div className="grid md:grid-cols-3 gap-6">
-          {/* Carte de Solde */}
           <div className="md:col-span-2 bg-white rounded-2xl p-6 shadow-xl flex items-center justify-center">
             <div className="text-center">
               <h2 className="text-xl font-semibold text-gray-800 mb-4">
                 Solde Actuel
               </h2>
               <h3 className="text-5xl font-bold text-indigo-700">
-                0€
+                0 XFA
               </h3>
             </div>
           </div>
 
-          {/* Actions Rapides */}
           <div className="grid grid-cols-3 gap-4 bg-white rounded-2xl p-6 shadow-xl">
             {[
               { icon: <FaMoneyBillWave />, title: 'Dépôt', color: 'bg-green-500' },
@@ -91,7 +87,6 @@ const BankDashboard = () => {
           </div>
         </div>
 
-        {/* Transactions Récentes */}
         <div className="mt-8 bg-white rounded-2xl p-6 shadow-xl">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-2xl font-semibold">

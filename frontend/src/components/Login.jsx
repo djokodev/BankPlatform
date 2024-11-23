@@ -27,7 +27,7 @@ const LoginPage = () => {
         try {
             const response = await loginUser(credentials);
             console.log('Utilisateur connecté:', response);
-            navigate('/dashboard');
+            navigate('/account');
             localStorage.setItem('access_token', response.access);
         } catch (error) {
             setError(error.response?.data?.detail || 'Une erreur est survenue');
