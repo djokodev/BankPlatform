@@ -41,4 +41,19 @@ export const refreshToken = async (refreshToken) => {
  
 };
 
+// Fonction pour créer un compte bancaire
+export const createBankAccount = async (accountType, token) => {
+  try {
+    const response = await api.post(
+      'api/account/create-bank-account/',
+      { account_type: accountType }, 
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la création du compte bancaire:', error.response?.data || error.message);
+    throw new Error('Erreur lors de la création du compte bancaire');
+  }
+};
+
 export default api;

@@ -1,6 +1,8 @@
 from rest_framework import serializers
-from .models import User
+from .models import User, UserProfile
 from phonenumber_field.serializerfields import PhoneNumberField
+from django_countries.fields import CountryField
+
 
 
 def generate_unique_username(first_name, last_name):
@@ -9,10 +11,18 @@ def generate_unique_username(first_name, last_name):
     if user_count == 0:
         return base_username
     else:
-        return f"{base_username} {user_count + 1}"
+        return f"{base_username}_{user_count + 1}"
 
 class UserSerializer(serializers.ModelSerializer):
-    phone_number = PhoneNumberField()
+    phone_number = PhoneNumberField(error_messages={
+        "invalid": "Le numéro de téléphone doit être au format international, ex: +237652260368."
+    })
+    country = serializers.ChoiceField(
+        choices=CountryField().get_choices(),
+        error_messages={
+            "invalid_choice": "Veuillez entrer un code pays (ex: 'CM') ou un nom valide (ex: 'Cameroon')."
+        }
+    )
 
     class Meta:
         model = User
@@ -30,7 +40,6 @@ class UserSerializer(serializers.ModelSerializer):
         password = validated_data['password']
         country = validated_data['country']
 
-        # Générer un username à partir du prénom et du nom
         username = generate_unique_username(first_name, last_name)
 
         user = User(
@@ -41,7 +50,13 @@ class UserSerializer(serializers.ModelSerializer):
             username=username,
             country=country
         )
-        # chiffrer un mot de passe avant de le stocker dans la base de données.
+
         user.set_password(password)
         user.save()
         return user
+
+
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+      model = UserProfile
+      fields = ('date_of_birth', 'address', 'city')

@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaWallet, FaExchangeAlt, FaMoneyBillWave, FaPlus, FaUser} from 'react-icons/fa';
+import axios from 'axios';
+
 
 const BankDashboard = () => {
+  const [balance, setBalance] = useState(0); // Solde de l'utilisateur
+  // const [recentTransactions, setRecentTransactions] = useState([]); // Transactions récentes
+  const [loading, setLoading] = useState(true); // Indicateur de chargement
+  const [error, setError] = useState(''); // Message d'erreur
 
   const recentTransactions = [
     {
